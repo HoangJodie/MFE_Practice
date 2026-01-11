@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { Product } from '../../types/Product';
-import { formatMoney } from '../../utils/formatMoney';
-import { useAddToCart } from '../../cart/hooks/useCartMutations';
+import { formatMoney } from '@shared/api';
+import { useAddToCart } from '../hooks/useCartMutations';
 
 export default function ProductCard(product: Product) {
-  const [quantity, setQuantity] = useState(1);
-  const [addedToCart, setAddedToCart] = useState(false);
-  const addToCart = useAddToCart();
+    const [quantity, setQuantity] = useState(1);
+    const [addedToCart, setAddedToCart] = useState(false);
+    const addToCart = useAddToCart();
 
-  const handleAdd = () => {
-    addToCart.mutate(
-      { productId: product.id, quantity },
-      {
-        onSuccess: () => {
-          setAddedToCart(true);
-          setTimeout(() => setAddedToCart(false), 2000);
-        },
-      }
-    );
-  };
+    const handleAdd = () => {
+        addToCart.mutate(
+            { productId: product.id, quantity },
+            {
+                onSuccess: () => {
+                    setAddedToCart(true);
+                    setTimeout(() => setAddedToCart(false), 2000);
+                },
+            }
+        );
+    };
 
     return (
         <>

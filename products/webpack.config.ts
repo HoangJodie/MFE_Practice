@@ -17,5 +17,18 @@ const config = {
 export default composePlugins(
   withNx(),
   withReact(),
-  withModuleFederation(config, { dts: false })
+  withModuleFederation(config, { dts: false }),
+  (config) => {
+    config.ignoreWarnings = [
+      /Failed to parse source map/, // This ignores the noisy warnings
+    ];
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve?.alias,
+        '@shared/api': 'd:/Workspace/NodeJs/hoang-micro-fe/MFE_Practice/shared/src/index.ts',
+      },
+    };
+    return config;
+  }
 );

@@ -19,7 +19,7 @@
     "customConditions": ["@org/source"],
     "baseUrl": ".",
     "paths": {
-      "@shared/api": ["shared/api/index.ts"],
+      "@shared/api": ["shared/src/index.ts"],
       "@shared/*": ["shared/*"]
     }
   }
