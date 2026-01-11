@@ -1,0 +1,10 @@
+{
+  "name": "shell",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "products": "*",
+    "cart": "*",
+    "orders": "*"
+  }
+}

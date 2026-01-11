@@ -1,0 +1,89 @@
+{
+  "name": "products",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "products/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/products",
+        "index": "products/src/index.html",
+        "baseHref": "/",
+        "main": "products/src/main.ts",
+        "tsConfig": "products/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "products/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "favicon.ico",
+            "input": "products/src",
+            "output": "."
+          }
+        ],
+        "styles": ["products/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "products/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "products:build",
+        "hmr": true,
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "products:build:development"
+        },
+        "production": {
+          "buildTarget": "products:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "products:build",
+        "port": 4201,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "products:build:development"
+        },
+        "production": {
+          "buildTarget": "products:build:production"
+        }
+      }
+    }
+  },
+  "implicitDependencies": ["shared"],
+  "tags": []
+}

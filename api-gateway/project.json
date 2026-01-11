@@ -1,0 +1,19 @@
+{
+  "name": "api-gateway",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run dev",
+        "cwd": "api-gateway"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run build",
+        "cwd": "api-gateway"
+      }
+    }
+  }
+}
