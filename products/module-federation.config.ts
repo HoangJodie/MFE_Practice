@@ -5,9 +5,19 @@ const config: ModuleFederationConfig = {
   exposes: {
     './Module': './src/remote-entry.ts',
   },
+  shared: (libraryName, defaultConfig) => {
+    // Ensure React libs and our shared lib are singletons to avoid duplicate React instances
+    if (libraryName === 'react' || libraryName === 'react-dom' || libraryName === '@org/shared') {
+      return {
+        ...defaultConfig,
+        singleton: true,
+        strictVersion: false,
+        requiredVersion: false,
+      };
+    }
+
+    return defaultConfig;
+  },
 };
 
-/**
- * Nx requires a default export of the config to allow correct resolution of the module federation graph.
- **/
 export default config;

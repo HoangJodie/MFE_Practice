@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "rootDir": "."  // Thêm dòng này
+  },
   "files": [],
   "include": [],
   "references": [

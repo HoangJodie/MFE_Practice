@@ -1,11 +1,7 @@
-import NxWelcome from './nx-welcome';
+import ProductsPage from '../pages/ProductsPage';
 
 export function App() {
-  return (
-    <div>
-      <NxWelcome title="products" />
-    </div>
-  );
+  return <ProductsPage />;
 }
 
 export default App;

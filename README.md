@@ -1,3 +1,103 @@
+# MFE Practice — Monorepo
+
+This repository is a micro-frontend (module federation) practice monorepo containing a host shell, multiple remotes, a shared library, and a small API gateway for demo data.
+
+**Projects included**
+- `shell`: host application (port 4200)
+- `cart`: remote app (port 4202)
+- `orders`: remote app (port 4203)
+- `products`: product remote/library
+- `shared`: shared library used by apps
+- `api-gateway`: simple backend serving demo data and endpoints
+
+**Prerequisites**
+- Node.js 18+ (Node 20 recommended)
+- npm 8+ (or another package manager; instructions below assume `npm`)
+- Git (to clone the repo)
+
+**Install dependencies**
+1. Clone the repo and open its root directory:
+
+```bash
+git clone <repo-url>
+cd mfe-practice
+```
+
+2. Install workspace packages (this will install the frontend workspaces):
+
+```bash
+npm install
+```
+
+3. Install backend dependencies (api-gateway is not part of npm workspaces and must be installed separately):
+
+```bash
+cd api-gateway
+npm install
+cd ..
+```
+
+Note: If you prefer `pnpm` or `yarn` adapt the commands accordingly. For `pnpm` you may run `pnpm install` at the workspace root and then `pnpm install` inside `api-gateway`.
+
+**Run the project (development)**
+Open separate terminals for each process.
+
+1. Start the backend API gateway (optional but recommended):
+
+```bash
+cd api-gateway
+npm run dev   # uses nodemon, or `npm start` to run once
+```
+
+2. Start the frontend apps using Nx. From the repo root run the dev servers (in separate terminals):
+
+```bash
+npx nx serve cart
+npx nx serve orders
+npx nx serve shell
+```
+
+Ports (defaults):
+- Shell: `http://localhost:4200`
+- Cart: `http://localhost:4202`
+- Orders: `http://localhost:4203`
+
+Alternative: run multiple targets in parallel with Nx:
+
+```bash
+npx nx run-many --target=serve --projects=cart,orders,shell --parallel
+```
+
+**Build (production)**
+Build individual apps with:
+
+```bash
+npx nx build shell --configuration=production
+npx nx build cart --configuration=production
+npx nx build orders --configuration=production
+```
+
+Built output is typically placed under each app's `dist/` or configured `outputPath` (see each project's config).
+
+**Useful commands**
+- Run tests (if configured): `npx nx test <project>`
+- Lint: `npx nx lint <project>`
+- View project graph: `npx nx graph`
+
+**Where to look in the repo**
+- Shell app: [shell](shell)
+- Cart app: [cart](cart)
+- Orders app: [orders](orders)
+- Products / packages: [products](products) and [packages](packages)
+- Shared code: [shared](shared)
+- Backend: [api-gateway/server.js](api-gateway/server.js)
+
+**Troubleshooting**
+- If ports are already in use, change the port in each project's `project.json` or start command.
+- If a frontend app fails to find a remote, ensure the remote is running and note the `NX_MF_DEV_REMOTES` env var support in Nx configs.
+- Install errors: verify Node and npm versions and try removing `node_modules` and reinstalling.
+
+If you want, I can also add a `start:all` script or a small helper script to run the backend and all frontends together.
 # New Nx Repository
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>

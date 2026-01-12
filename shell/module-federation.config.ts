@@ -15,6 +15,18 @@ const config: ModuleFederationConfig = {
    *
    */
   remotes: ['products', 'cart', 'orders'],
+  shared: (libraryName, defaultConfig) => {
+    if (libraryName === 'react' || libraryName === 'react-dom' || libraryName === '@org/shared') {
+      return {
+        ...defaultConfig,
+        singleton: true,
+        strictVersion: false,
+        requiredVersion: false,
+      };
+    }
+
+    return defaultConfig;
+  },
 };
 
 /**

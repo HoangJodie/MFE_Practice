@@ -1,5 +1,5 @@
-import axios, { InternalAxiosRequestConfig } from 'axios';
-import { paramsSerializer } from '../utils/paramsSerializer';
+import axios from 'axios';
+import { paramsSerializer } from '../utils/paramsSerializer.js';
 
 export interface ApiClientOptions {
   baseURL: string;
@@ -16,21 +16,6 @@ export const createApiClient = (options: ApiClientOptions) => {
     },
     paramsSerializer,
   });
-
-  // Request interceptor
-  apiClient.interceptors.request.use(
-    (config: InternalAxiosRequestConfig) => {
-      const token =
-        localStorage.getItem('accessToken') ||
-        sessionStorage.getItem('accessToken');
-
-      if (token && !config.headers?.has('Authorization')) {
-        config.headers.set('Authorization', `${token}`);
-      }
-
-      return config;
-    },
-  );
 
   // Response interceptor
   apiClient.interceptors.response.use(

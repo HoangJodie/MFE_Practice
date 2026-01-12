@@ -1,2 +1,2 @@
-export * from './formatMoney';
-export * from './paramsSerializer';
+export * from './formatMoney.js';
+export * from './paramsSerializer.js';

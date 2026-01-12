@@ -19,8 +19,8 @@
     "customConditions": ["@org/source"],
     "baseUrl": ".",
     "paths": {
-      "@shared/api": ["shared/api/index.ts"],
-      "@shared/*": ["shared/*"]
+      "@org/shared": ["shared/src/index.ts"],
+      "@org/shared/*": ["shared/src/*"]
     }
   }
 }
